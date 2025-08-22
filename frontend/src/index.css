@@ -1,0 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Bungee&family=Caveat:wght@400..700&family=Doto:wght@100..900&family=Permanent+Marker&family=Roboto+Slab:wght@100..900&display=swap');
+@import "tailwindcss";
+
+.new-font {
+    font-family: "Bungee", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.new-font2 {
+  font-family: "Roboto Slab", serif;
+  font-optical-sizing: auto;
+}
