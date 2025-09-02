@@ -5,6 +5,7 @@ import { AnimatePresence, motion as Motion} from "framer-motion";
 import { useDispatch } from "react-redux";
 import { login } from "../store/authSlice"
 import axios from "axios";
+import Signup from "./Signup";
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
@@ -28,7 +29,7 @@ export default function Login() {
         console.log("✅ Login success:", res.data);
         localStorage.setItem("token", res.data.token);
         dispatch(login({token: res.data.token, user: res.data.user, isAuthenticated:true}))
-        navigate("/home")
+        navigate("/")
       } catch (error) {
         console.error("❌ Login error:", error.response?.data || error.message);
       } 
@@ -51,7 +52,7 @@ export default function Login() {
           <h3 className={toggle ? "bg-purple-700 p-2 rounded-lg" : "text-black p-2 rounded-lg"}>Login</h3>
           <h3 className={!toggle ? "bg-purple-700 p-2 rounded-lg" : "text-black p-2 rounded-lg"}>Signup</h3>
         </div>
-        <h2 className="text-3xl font-bold text-purple-700 mb-6">Welcome Back</h2>
+        {toggle ? <h2 className="text-3xl font-bold text-purple-700 mb-6">Welcome Back</h2> : <h2 className="text-3xl font-bold text-purple-700 mb-6">Welcome</h2>}
        
        {/*Making a toggled form  */}
         <AnimatePresence mode="wait" initial={false} > 
@@ -106,51 +107,7 @@ export default function Login() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -40 }}
               transition={{ duration: 0.4 }}
-        > <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-          {/* Email */}
-          <div>
-            <label className="block text-gray-700 mb-1">Username</label>
-            <input
-              type="username"
-              {...register("username", { required: "Username is required" })}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-500"
-            />
-            {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
-          </div>
-          <div>
-            <label className="block text-gray-700 mb-1">Email</label>
-            <input
-              type="email"
-              {...register("email", { required: "Email is required" })}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-500"
-            />
-            {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
-          </div>
-
-          {/* Password */}
-          <div>
-            <label className="block text-gray-700 mb-1">Password</label>
-            <input
-              type="password"
-              {...register("password", { required: "Password is required" })}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-500"
-            />
-            {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
-          </div>
-
-          {/* Submit */}
-          <button
-            type="submit"
-            className="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 transition-colors"
-          >
-            Login
-          </button>
-        </form>
-
-        {/* Footer Links */}
-        <p className="mt-4 text-sm text-gray-500">
-          Already have an account? <a href="#" className="text-purple-600 hover:underline">Login</a>
-        </p> </Motion.div>}
+        > <Signup /> </Motion.div>}
         </AnimatePresence>
       </div>
     </div>
