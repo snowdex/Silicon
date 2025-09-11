@@ -1,20 +1,17 @@
-
-import Header from '../components/Header'
-
+import Header from "../components/Header";
+import RevealText from "../components/CoolStuff/RevealText"
 
 function Home() {
-
-
   return (
-    <div className='h-screen flex flex-col items-center gap-10'>
-      <Header />
-      <div className='bg-gradient-to-br from-[#E31C25] via-black to-[#0A3D91] min-h-screen w-full '>
-        <div className='bg-white rounded-xl h-fit'>
-          <h2>Attendance</h2>
-        </div> 
+    <div className="bg-[#efecdf] h-screen grid grid-rows-[auto_1fr] gap-10">
+      <div>
+        <Header />
+      </div>
+      <div className="pt-32">
+        <RevealText classname={"text-3xl text-[#3c3c3c] new-font"} stuff={[]} />
       </div>
     </div>
-  )
+  );
 }
 
-export default Home
+export default Home;
