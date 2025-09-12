@@ -14,6 +14,17 @@ router.get('/v1/school', (req, res) => {
     res.send('School Page');
 });
 
+//Validation token for frontend user access
+router.get('/v1/me', validateToken, (req, res)=>{
+    try {
+        const { id,email, name} = req.user; // Extracted from validateToken middleware
+        return res.status(200).json({ id, email, name });
+    } catch (error) {
+        return res.status(500).json({ message: 'Internal Server Error' });
+    }
+})
+
+
 //chores
 router.get('/v1/chores', getAllChores)
 router.post('/v1/chores/add', createChore)

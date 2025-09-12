@@ -19,7 +19,7 @@ const login = async(req, res)=>{
             message: "Invalid credentials",
             success: false
         });
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        const token = jwt.sign({ id: user._id, email: user.email, name: user.name  }, process.env.JWT_SECRET, { expiresIn: '31d' });
         return res.status(200).json({
             message: "Login successful",
             success: true,
@@ -59,7 +59,7 @@ const signup = async(req, res)=>{
         });
         await newUser.save();
 
-        const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        const token = jwt.sign({ id: newUser._id, email: newUser.email, name: newUser.name  }, process.env.JWT_SECRET, { expiresIn: '1h' });
         return res.status(200).json({
             message: "Signup successful",
             success: true,
