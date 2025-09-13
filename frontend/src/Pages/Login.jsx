@@ -1,11 +1,26 @@
 import { useForm } from "react-hook-form";
 import RevealText from "../components/cool/RevealText";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { login } from "../redux/authSlice";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const { register, handleSubmit, formState: { errors } } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data); // only UI now
+  const dispatch = useDispatch();
+  const navigate = useNavigate()
+
+  const onSubmit = async(data) => {
+    try {
+      const res = await axios.post("http://localhost:3000/api/v1/login", data);
+      console.log(res.data.message);
+      localStorage.setItem("token", res.data.token);
+      dispatch(login({token: res.data.token, user: res.data.user, isAuthenticated: true}));
+      navigate("/");
+    } catch (error) { 
+      console.log("Error: ", error);
+    } // only UI now
   };
 
   return (
